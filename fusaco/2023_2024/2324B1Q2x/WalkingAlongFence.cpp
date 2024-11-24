@@ -16,7 +16,7 @@ struct Point {
     int operator^ (Point& p){
         return abs(x-p.x) + abs(y-p.y);
     }
-    // same pos: horizontal or vertical, such as, (1,0)~(1.2)
+    // same pos key: horizontal or vertical, such as, (1,0)~(1.2)
     string operator& (Point& p){
         if(x==p.x){
             return string("x") + to_string(x);
@@ -72,7 +72,6 @@ int main() {
     seg_prefix_sum[0]=0;
 
     Point firstp, lastp;
-    
     cin >> firstp.x >> firstp.y;
     lastp = firstp;
     
@@ -82,7 +81,6 @@ int main() {
         // to seg map
         segs[i] = {lastp,pt,i};
         m[lastp&pt].push_back(segs[i]);
-        
         // prefix sum
         seg_prefix_sum[i] = seg_prefix_sum[i-1] + (lastp^pt);
         
@@ -92,21 +90,11 @@ int main() {
     // last one to the first one
     segs[p] = {lastp,firstp,p};
     m[lastp&firstp].push_back(segs[p]);
-    
     seg_prefix_sum[p] = seg_prefix_sum[p-1] + (lastp^firstp);
     
-    vector<Point> ar(n);
-    vector<Point> br(n);
     for(int i=0;i<n;i++){
         Point a, b;
         cin >> a.x >> a.y >> b.x >> b.y;
-        ar[i]=a;
-        br[i]=b;
-    }
-    
-    for(int i=0;i<n;i++){
-        Point& a = ar[i];
-        Point& b = br[i];
 
         int shortest;
         // which segment in
