@@ -68,7 +68,7 @@ int main() {
     int cur_group_len=0;
     gp tmp_group;
     if(lastx==firstx){
-        tmp_group = {lasty,firstx,p};
+        tmp_group = {lasty,firsty,p};
         mapx[firstx].push_back( tmp_group );
 
     } else {
