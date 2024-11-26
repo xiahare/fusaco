@@ -4,16 +4,6 @@
 
 using namespace std;
 
-int next_hnumber(int n1, int n2, int left, int right){
-    if(n1!=left&&n1!=right){
-        return n1;
-    } else if(n2!=-1&&n2!=left&&n2!=right){
-        return n2;
-    }
-    
-    return -1;
-}
-
 int remain_number(vector<bool>& visited){
     for(int i=1; i<visited.size();i++){ // visited indexed from 1
         if(!visited[i]){
@@ -23,147 +13,71 @@ int remain_number(vector<bool>& visited){
     return -1;
 }
 
+int execute(){
+    int n;
+    cin >> n;
+    
+    vector<bool> visited(n+1,false); // visited indexed from 1
+    visited[0]=true;
+    
+    int h[n]; // indexed from 1
+    h[0]=-1;
+    
+    // check
+    bool check_fail = false;
+    for(int i=1;i<n-1;i++){ // N-2: h[1]~h[n-2] exclude last one
+        cin >> h[i];
+        if(visited[h[i]]){
+            // cannot duplicate
+            check_fail = true;
+
+        } else {
+            visited[h[i]]=true;
+        }
+    }
+    // need to read all input to avoid other tests
+    cin >> h[n-1]; // h[n-1] is unuseful
+    if(h[n-1]!=1 || check_fail){
+        // last one must be 1
+        cout << -1 << endl;
+        return 0;
+    }
+    
+    // handle normal case
+    int first = remain_number(visited);
+    visited[first] = true;
+    int last = remain_number(visited);
+    
+    vector<int> results(n,-1);
+    results[0] = first;
+    results[n-1] = last;
+    int l=0;
+    int r=n-1;
+    for(int i=1; i<n-1; i++){ // exclude last one
+        if(results[l]>results[r]){
+            results[++l] = h[i];
+        } else {
+            results[--r] = h[i];
+        }
+    }
+    
+    for(int i=0; i<n ; i++){
+        cout << results[i] ;
+        if(i!=n-1){
+            cout << " ";
+        }
+    }
+    cout << endl;
+    return 0;
+}
 int main() {
     int t;
     cin >> t;
     
     while(t--){
-        int n;
-        cin >> n;
-        
-        vector<bool> visited(n+1,false);
-        visited[0]=true;
-        int h[n]; // indexed from 1
-        h[0]=-1;
-        int count1=0;
-        bool check_fail = false;
-        
-        for(int i=1;i<n;i++){
-            cin >> h[i];
-            if(visited[h[i]]){
-                // cannot duplicate except two 1s
-                if(h[i]==1){
-                    count1++;
-                    if(count1>1){
-                        cout << -1 << endl;
-                        check_fail =true;
-                        break;
-                    }
-                }else{
-                    cout << -1 << endl;
-                    check_fail =true;
-                    break;
-                }
-
-            } else {
-                visited[h[i]]=true;
-            }
-        }
-        if(check_fail){
-            continue;
-        }
-        
-        bool ended = false;
-
-        deque<int> dq;
-        // index 0
-        dq.push_back(1);
-        
-        // special cases
-        if(h[n-1]!=1){
-            cout << -1 << endl;
-            continue;
-        } else {
-            if(n==2){
-                cout << "1 2" << endl;
-                continue;
-            } else if(n==3){
-                if( h[1]==1 ){
-                    cout << "2 1 3" << endl;
-                    continue;
-                } else if( h[1]==2){
-                    cout << "1 2 3" << endl;
-                    continue;
-                } else if( h[1]==3){
-                    cout << "1 3 2" << endl;
-                    continue;
-                }
-            }
-        }
-                
-        // when n>4 : 2 ~ (n-3)
-        for(int i=2; i<=n-1; i++){
-            int h_idx = n+1-i;
-            int left = dq.front();
-            int right = dq.back();
-            if(h[h_idx] != left && h[h_idx] != right ){
-                cout << -1 << endl;
-                ended =true;
-                break;
-            }
-            
-            int next_v = h[h_idx-1]; // next_hnumber ( h[h_idx-1], h[h_idx-2], left, right );
-            if(next_v == left || next_v == right ){
-                next_v = remain_number(visited);
-                visited[next_v]=true;
-            }
-
-            if(h[h_idx]==left){
-                dq.push_front(next_v);
-            } else {
-                dq.push_back(next_v);
-            }
-            
-        }
-        
-        if(!ended){
-            // n-1 , n
-            int h_idx = 1;
-            
-            if(h[h_idx] != dq.front() && h[h_idx] != dq.back() ){
-                cout << -1 << endl;
-                continue;
-            }
-            int rem = remain_number(visited);
-            visited[rem]=true;
-            if(h[h_idx]==dq.front()){
-                dq.push_front(rem);
-            } else {
-                dq.push_back(rem);
-            }
-            visited[rem]=true;
-            
-            if(dq.front()<dq.back()){
-                cout << dq.front();
-                dq.pop_front();
-                while(!dq.empty()){
-                    cout << " " << dq.front();
-                    dq.pop_front();
-                }
-            } else {
-                cout << dq.back() ;
-                dq.pop_back();
-                while(!dq.empty()){
-                    cout << " " << dq.back() ;
-                    dq.pop_back();
-                }
-            }
-            cout << endl;
-        }
+        execute();
     }
-    /**
-     (n-1) (n)
-     h       p
-         
-         1
-     n-1    2
-     n-2    3
-     n-3    4
-    n+1-i     i
-     3     n-2
-     2      n-1
-     1     n
-     */
+
     return 0;
 }
 
