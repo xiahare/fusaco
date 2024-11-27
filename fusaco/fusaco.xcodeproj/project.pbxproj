@@ -124,14 +124,14 @@
 		AB609CAC2CF6647B000787F9 /* Exceptions for "2023_2024" folder in "2324BAQ2" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				2324BAQ2/main.cpp,
+				2324BAQ2/CowInfect.cpp,
 			);
 			target = AB609C8F2CF6643C000787F9 /* 2324BAQ2 */;
 		};
 		AB609CAD2CF6647B000787F9 /* Exceptions for "2023_2024" folder in "2324BAQ3" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				2324BAQ3/main.cpp,
+				2324BAQ3/ActuallyFarms.cpp,
 			);
 			target = AB609C9A2CF6645A000787F9 /* 2324BAQ3 */;
 		};
@@ -143,8 +143,8 @@
 				2324B1Q2x/WalkingAlongFence.cpp,
 				2324B1Q3/FavoritePermutation.cpp,
 				2324BAQ1/CandyCaneFeast.cpp,
-				2324BAQ2/main.cpp,
-				2324BAQ3/main.cpp,
+				2324BAQ2/CowInfect.cpp,
+				2324BAQ3/ActuallyFarms.cpp,
 			);
 			target = ABED97FB2CEF9CD200932178 /* 2324B1Q1 */;
 		};
