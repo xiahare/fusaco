@@ -182,7 +182,7 @@
 		AB609CDE2CF7B06F000787F9 /* Exceptions for "2023_2024" folder in "2324BbQ3" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				2324BbQ3/main.cpp,
+				2324BbQ3/BalancingBacteria.cpp,
 			);
 			target = AB609CCB2CF7B066000787F9 /* 2324BbQ3 */;
 		};
@@ -198,7 +198,7 @@
 				2324BAQ3/ActuallyFarms.cpp,
 				2324BbQ1/MajorityOpinion.cpp,
 				2324BbQ2/CannonBall.cpp,
-				2324BbQ3/main.cpp,
+				2324BbQ3/BalancingBacteria.cpp,
 			);
 			target = ABED97FB2CEF9CD200932178 /* 2324B1Q1 */;
 		};
