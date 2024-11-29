@@ -1,14 +1,23 @@
-//
-//  main.cpp
-//  2324BcQ1
-//
-//  Created by Lei Xia on 11/28/24.
-//
-
 #include <iostream>
-
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+int main() {
+    int T;
+    cin >> T;
+    while (T--){
+        string s;
+        cin >> s;
+        cout << ((s[s.size()-1]=='0')?'E':'B') << endl;
+    }
     return 0;
 }
+/**
+3
+8
+10
+12
+-----
+B
+E
+B
+ 
+ */
