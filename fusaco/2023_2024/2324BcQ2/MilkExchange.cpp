@@ -10,7 +10,7 @@ struct Group {
 };
 
 int positiveMod(int x, int mod){
-    return ((x%mod)+mod)%mod;
+    return (x+mod)%mod;
 }
 int main() {
     //ifstream cin("/Users/lei/Downloads/prob2_bronze_feb24/7.in");
