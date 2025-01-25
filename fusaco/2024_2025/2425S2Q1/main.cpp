@@ -5,115 +5,53 @@
 
 using namespace std;
 
-void execute(){
-    int N, A, B;
-    cin >> N >> A >> B;
-    vector<vector<char>> a(N, vector<char>(N, 'W'));
-    
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            cin >> a[i][j];
-        }
-    }
-    
-    int cnt = 0;
-    if(A==0 && B==0){
-        // A==0 && B==0 , total B and G count
-        for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-                if( a[i][j]!='W' ){
-                    cnt++;
-                }
-            }
-        }
-        cout << cnt << endl;
-        return ;
-    }
-    auto outbound = [&](int x, int y) -> bool {
-        if(x<0 || y<0){
-            return true;
-        } else {
-            return false;
-        }
-    };
-    vector<vector<bool>> res(N, vector<bool>(N, false));
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            if( a[i][j]=='B' ){
-                int reverseX = i-B;
-                int reverseY = j-A;
-                if( outbound(reverseX, reverseY) || a[reverseX][reverseY]=='W' ){
-                    cout << -1 << endl;
-                    return;
-                } else {
-                    res[i][j] = true;
-                    res[reverseX][reverseY] = true;
-                }
-            } else if( a[i][j]=='G' ) {
-                int reverseX = i-B;
-                int reverseY = j-A;
-                if( outbound(reverseX, reverseY) || a[reverseX][reverseY]=='W' ){
-                    res[i][j] = true;
-                } else if( a[reverseX][reverseY]=='G' && res[reverseX][reverseY]==false ){
-                    res[i][j] = true;
-                }
-            }
-        }
-    }
-    
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            if( res[i][j] ){
-                cnt++;
-            }
-        }
-    }
-    cout << cnt << endl;
-    
-}
-
 int main() {
-    int T;
-    cin >> T;
-    while (T--){
-        execute();
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n) ;
+    int total_cnt_same = 0;
+    
+    for(int i=0;i<n;i++){
+        cin >> a[i];
     }
+    for(int i=0;i<n;i++){
+        cin >> b[i];
+        if( a[i]==b[i] ) total_cnt_same++;
+    }
+    
+    vector<vector<int>> dp(2,vector<int>(n,total_cnt_same));
+    
+    long long res = n * total_cnt_same;
+    for(int delt=1;delt<n;delt++){ // delt -> 1, ... , n
+        int mainIdx = delt % 2;
+        for(int i=0;i<n-delt;i++){ // i -> 0, ... , n-delt
+            int j = i+delt; // j -> 0+delt, 1+delt, delt
+            // mid_total = res[i+1][j-1], delt for (a[i]==b[j]) + (a[j]==b[i]) of swapped and (a[i]==b[i]) + (a[j]==b[j]) of origin
+            dp[mainIdx][i] = dp[mainIdx][i+1] + (a[i]==b[j]) + (a[j]==b[i]) - (a[i]==b[i]) - (a[j]==b[j]);
+            res += dp[mainIdx][i];
+        }
+    }
+    
+    cout << res << endl;
+    
     return 0;
 }
-
 /**
-2
-3 0 0
-WWB
-BBB
-GGG
-4 1 1
-GWWW
-WGWW
-WWGW
-WWWG
+3
+1 3 2
+3 2 1
 -----
-7
-2
+3
 
 3
-5 1 2
-GWGWW
-WGWWW
-WBWGW
-WWWWW
-WWGWW
-3 1 1
-WWW
-WBW
-WWW
-3 1 0
-GGB
-GGW
-WWW
+1 2 3
+1 2 3
 ----
-4
--1
-4
- 
+12
+
+7
+1 3 2 2 1 3 2
+3 2 2 1 2 3 1
+-------
+60ß
  */
