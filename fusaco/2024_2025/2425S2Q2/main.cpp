@@ -1,50 +1,55 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <map>
+#include <climits>
 using namespace std;
 
-struct info{
-    int cnt = 0;
-    int idx1=-1, idx2=-1;
-    
-};
-
 int main() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    vector<int> vdis(n); // distinct number except self
-    map<int, info> m;
-    for(int i=0;i<n;i++){
-        
-        cin >> a[i];
-        vdis[i] = (int) m.size() - (int) m.count(a[i]);
-        info &x = m[a[i]];
-        x.cnt++;
-        x.idx1 = x.idx2;
-        x.idx2 = i;
-    }
-    
-    long long total = 0;
-    for( auto &x: m ){
-        auto inf = x.second ;
-        if(inf.cnt>1 ){
-            total += vdis[inf.idx1];
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int N;
+        long long M;
+        cin >> N >> M;
+
+        vector<long long> a(N);
+        vector<long long> freq(M, 0);
+        for (int i = 0; i < N; ++i) {
+            cin >> a[i];
+            freq[a[i] % M]++;
         }
+
+        long long minOperations = LLONG_MAX;
+
+        // Try every possible x % M
+        for (int xModM = 0; xModM < M; ++xModM) {
+            long long operations = 0;
+
+            for (int r = 0; r < M; ++r) {
+                // Calculate cost to adjust residue r to xModM
+                long long cost = min((r - xModM + M) % M, (xModM - r + M) % M);
+                operations += freq[r] * cost;
+            }
+
+            minOperations = min(minOperations, operations);
+        }
+
+        cout << minOperations << endl;
     }
-    cout << total << endl;
+
     return 0;
 }
-
-
 /**
- 2
- 5 9
- 15 12 18 3 8
- 3 69
- 1 988244353 998244853
+2
+5 9
+15 12 18 3 8
+3 69
+1 988244353 998244853
+
+
 ----
- 10
- 21
+10
+21
+ 
  */
