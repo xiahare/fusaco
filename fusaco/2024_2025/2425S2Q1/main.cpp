@@ -59,8 +59,8 @@ int main() {
         
         
         int layer_size = r - l + 1;
-        ll l_new = ( mb[a[l]] - l_smae - total_cnt_same + l_smae ) + ( ma[b[l]] - (l_smae)*layer_size );
-        ll r_new = ( mb[a[r]] - r_smae - total_cnt_same + r_smae ) + ( ma[b[r]] - (r_smae)*layer_size );
+        ll l_new = ( mb[a[l]] - total_cnt_same ) + ( ma[b[l]] - (l_smae)*layer_size );
+        ll r_new = ( mb[a[r]] - total_cnt_same ) + ( ma[b[r]] - (r_smae)*layer_size );
         ll l_r = (a[l]==b[r]) + (a[r]==b[l]) - (a[l]==b[l]) - (a[r]==b[r]);
         
         ll current_layer_loss_gain = l_new + r_new - l_r + last_layer_loss_gain;
