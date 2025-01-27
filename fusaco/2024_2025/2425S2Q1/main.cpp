@@ -8,7 +8,7 @@ using namespace std;
 using ll = long long;
 
 int main() {
-    ll n;
+    int n;
     cin >> n;
     vector<int> a(n), b(n) ;
 
