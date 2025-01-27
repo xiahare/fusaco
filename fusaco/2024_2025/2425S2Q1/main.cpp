@@ -23,8 +23,8 @@ int main() {
     
     // init: middle index, left=(n-1)/2, right=n/2
     // layer algrithm: current_layer_loss_gain = l_new + r_new - l_r + last_layer_loss_gain
-    //          l_new = ( mb[a[l]] -(same=self) - same_cnt + (same=self) ) + ( ma[b[l]] - (same=self)*layer_size )
-    //          r_new = ( mb[a[r]] -(same=self) - same_cnt + (same=self) ) + ( ma[b[r]] - (same=self)*layer_size )
+    //          l_new = ( mb[a[l]] - same_cnt ) + ( ma[b[l]] - (same=self)*layer_size )
+    //          r_new = ( mb[a[r]] - same_cnt ) + ( ma[b[r]] - (same=self)*layer_size )
     //          l_r = (a[l]==b[r]) + (a[r]==b[l]) - (a[l]==b[l]) - (a[r]==b[r])
     // accumulate ma, mb
     // accumulate total_cnt_same: if( a[i]==b[i] ) total_cnt_same++;
