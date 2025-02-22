@@ -37,9 +37,9 @@ bool checkSimpleK2(const vector<int>& v, int start, int end) {
 closeRange periodSubarr(const vector<int>& v, int start, int end) {
     int a = start, b = end;
     int size = end - start + 1;
-    if (size == 0) return closeRange{a, b}; // Use constructor
+    if (size <= 2) return {a, b}; // Use constructor
 
-    for (int sub_len = 2; sub_len <= size / 2 + 1; sub_len++) { // Fixed loop condition
+    for (int sub_len = 2; sub_len < size; sub_len++) { // Fixed loop condition
         if (size % sub_len != 0) continue;
         int sub_cnt = size / sub_len;
         int s0 = start, e0 = start + sub_len - 1;
@@ -59,7 +59,7 @@ closeRange periodSubarr(const vector<int>& v, int start, int end) {
             break;
         }
     }
-    return closeRange{a, b}; // Use constructor
+    return {a, b}; // Use constructor
 }
 
 bool checkK2(const vector<int>& v, int start, int end) {
@@ -70,9 +70,9 @@ bool checkK2(const vector<int>& v, int start, int end) {
 bool checkK3(const vector<int>& v, int start, int end) {
     auto sub_range = periodSubarr(v, start, end);
     if (sub_range.end - sub_range.start > 2) {
-        for (int i = sub_range.start + 1; i < sub_range.end - 1; i++) {
-            closeRange left_range{sub_range.start, sub_range.start + i}; // Use constructor
-            closeRange right_range{sub_range.start + i + 1, sub_range.end}; // Use constructor
+        for (int i = sub_range.start + 1; i <= sub_range.end - 1; i++) {
+            closeRange left_range{sub_range.start, i}; // Use constructor
+            closeRange right_range{i + 1, sub_range.end}; // Use constructor
             // left k=1, right k=2
             if (checkK1(v, left_range.start, left_range.end) && checkK2(v, right_range.start, right_range.end)) {
                 return true;
@@ -88,7 +88,7 @@ bool checkK3(const vector<int>& v, int start, int end) {
 }
 
 int main() {
-    
+
     int t;
     cin >> t;
 
@@ -101,9 +101,6 @@ int main() {
         vector<int> a(n);
         for (int i = 0; i < n; i++) {
             cin >> a[i];
-            if (a[i] > k) {
-                ans = "NO";
-            }
         }
 
         if (ans == "YES") {
@@ -126,6 +123,8 @@ int main() {
 
     return 0;
 }
+
+
 
 /**
 2
