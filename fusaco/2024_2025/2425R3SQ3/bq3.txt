@@ -1,0 +1,87 @@
+Bessie the brilliant bovine has discovered a new fascination—mathematical magic! One day, while trotting through the fields of Farmer John’s ranch, she stumbles upon two enchanted piles of hay. The first pile contains a bales, and the second pile contains b bales (1≤a,b≤1018
+
+).
+
+Next to the hay, half-buried in the dirt, she discovers an ancient scroll. As she unfurls it, glowing letters reveal a prophecy:
+
+To fulfill the decree of the Great Grasslands, the chosen one must transform these two humble hay piles into exactly c
+and d
+
+bales—no more, no less.
+
+Bessie realizes she can only perform the following two spells:
+
+    She can magically conjure new bales to increase the first pile’s size by the amount currently in the second pile.
+    She can magically conjure new bales to increase the second pile’s size by the amount currently in the first pile.
+
+She must perform these operations sequentially, but she can perform them any number of times and in any order. She must reach exactly c bales in the first pile and d bales in the second pile (1≤c,d≤1018).
+
+For each of T
+(1≤T≤104
+
+) independent test cases, output the minimum number of operations needed to fulfill the prophecy, or if it is impossible to do so, output -1.
+
+INPUT FORMAT (input arrives from the terminal / stdin):
+The first line contains T
+.
+
+The next T
+lines each contain four integers a,b,c,d
+
+.
+
+OUTPUT FORMAT (print output to the terminal / stdout):
+Output T
+lines, the answer to each test case.
+
+SAMPLE INPUT:
+
+4
+5 3 5 2
+5 3 8 19
+5 3 19 8
+5 3 5 3
+
+SAMPLE OUTPUT:
+
+-1
+3
+-1
+0
+
+In the first test case, it is impossible since b>d
+initially, but operations can only increase b
+
+.
+
+In the second test case, initially the two piles have (5,3)
+bales. Bessie can first increase the first pile by the amount in the second pile, resulting in (8,3) bales. Bessie can then increase the second pile by the new amount in the first pile, and do this operation twice, resulting in (8,11) and finally (8,19) bales. This matches c and d
+
+and is the minimum number of operations to get there.
+
+Note that the third test case has a different answer than the second because c
+and d
+
+are swapped (the order of the piles matters).
+
+In the fourth test case, no operations are necessary.
+
+SAMPLE INPUT:
+
+1
+1 1 1 1000000000000000000
+
+SAMPLE OUTPUT:
+
+999999999999999999
+
+SCORING:
+
+    Inputs 3-4: max(c,d)≤20⋅min(a,b)
+
+Inputs 5-7: T≤10
+and a,b,c,d≤106
+
+    Inputs 8-12: No additional constraints
+
+Problem credits: Benjamin Qi 
