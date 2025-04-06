@@ -11,11 +11,13 @@ int main() {
     int n, m;
     cin >> n >> m;
     
-    vector<vector<char>> v(n,vector<char>(n,'D'));
+    vector<vector<bool>> v(n,vector<bool>(n,'D'));
     for(int i=0; i<n; i++){
         for(int j=0; j<=i; j++){
-            cin >> v[i][j];
-            v[j][i] = v[i][j];
+            char c;
+            cin >> c;
+            v[i][j] = c=='W'?true:false;
+            v[j][i] = c=='L'?true:false;
         }
     }
     while (m--) {
@@ -27,7 +29,7 @@ int main() {
         // both win count
         int k=0;
         for(int i=0; i<n; i++){
-            if(v[i][a]=='W' && v[i][b]=='W'){
+            if(v[i][a] && v[i][b]){
                 k++;
             }
         }
